@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ingest-anything"
-version = "1.3.0.post1"
+version = "1.3.1"
 authors = [
   {name = "Clelia (Astra) Bertelli", email = "astraberte9@gmail.com"}
 ]
