@@ -14,6 +14,7 @@ try:
         IngestCode,
         BasePydanticVectorStore,
         BaseReader,
+        VectorStoreIndex,
     )
 except ImportError:
     from ingestion import (
@@ -21,6 +22,7 @@ except ImportError:
         IngestCode,
         BasePydanticVectorStore,
         BaseReader,
+        VectorStoreIndex,
     )
 
 
@@ -56,6 +58,12 @@ class IngestAnythingFunctionAgent(IngestAnything):
         if tools is None:
             tools = []
         self.tools = tools
+        try:
+            self.vector_store.get_nodes()
+        except Exception:
+            self.vector_store_index = None
+        else:
+            self.vector_store_index = VectorStoreIndex.from_vector_store(self.vector_store)
 
     def ingest(
         self,
@@ -207,6 +215,13 @@ class IngestCodeFunctionAgent(IngestCode):
         if tools is None:
             tools = []
         self.tools = tools
+        try:
+            self.vector_store.get_nodes()
+        except Exception:
+            self.vector_store_index = None
+        else:
+            self.vector_store_index = VectorStoreIndex.from_vector_store(self.vector_store)
+
 
     def ingest(
         self,
